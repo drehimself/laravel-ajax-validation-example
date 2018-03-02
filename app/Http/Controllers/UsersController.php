@@ -36,8 +36,14 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create($request->all());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
 
-        return back()->with('success_message', 'User successfully created!');
+        // session()->flash('success_message', 'User successfully created!');
+        return response()->json(['success' => true]);
+        // return back()->with('success_message', 'User successfully created!');
     }
 }
