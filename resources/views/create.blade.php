@@ -98,6 +98,7 @@
                 })
                 .then((response) => {
                     // window.location.href = '{{ route('create') }}'
+                    clearErrors()
                     this.reset()
                     this.insertAdjacentHTML('afterend', '<div class="alert alert-success" id="success">User created successfully!</div>')
                     document.getElementById('success').scrollIntoView()
@@ -111,21 +112,25 @@
                     // scroll to the error message
                     firstItemDOM.scrollIntoView()
 
-                    // remove all error messages
-                    const errorMessages = document.querySelectorAll('.text-danger')
-                    errorMessages.forEach((element) => element.textContent = '')
+                    clearErrors()
 
                     // show the error message
                     firstItemDOM.insertAdjacentHTML('afterend', `<div class="text-danger">${firstErrorMessage}</div>`)
-
-                    // remove all form controls with highlighted error text box
-                    const formControls = document.querySelectorAll('.form-control')
-                    formControls.forEach((element) => element.classList.remove('border', 'border-danger'))
 
                     // highlight the form control with the error
                     firstItemDOM.classList.add('border', 'border-danger')
                 });
             });
+
+            function clearErrors() {
+                // remove all error messages
+                const errorMessages = document.querySelectorAll('.text-danger')
+                errorMessages.forEach((element) => element.textContent = '')
+
+                // remove all form controls with highlighted error text box
+                const formControls = document.querySelectorAll('.form-control')
+                formControls.forEach((element) => element.classList.remove('border', 'border-danger'))
+            }
 
         })();
     </script>
